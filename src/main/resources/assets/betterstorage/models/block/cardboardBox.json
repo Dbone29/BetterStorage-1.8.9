@@ -1,0 +1,18 @@
+{
+    "textures": {
+        "cardboardBox": "betterstorage:blocks/cardboardBox",
+        "cardboardBox_side": "betterstorage:blocks/cardboardBox_side",
+        "particle": "betterstorage:blocks/cardboardBox"
+    },
+    "elements":[{
+        "from":[1,0,1],"to":[15,14,15],
+        "faces":{
+            "down":{"uv":[15,15,1,1], "texture":"#cardboardBox", "cullface": "down"},
+            "up":{"uv":[1,1,15,15], "texture":"#cardboardBox"},
+            "north":{"uv":[1,2,15,16], "texture":"#cardboardBox_side", "cullface": "north"},
+            "south":{"uv":[1,2,15,16], "texture":"#cardboardBox_side", "cullface": "south"},
+            "west":{"uv":[1,2,15,16], "texture":"#cardboardBox_side", "cullface": "west"},
+            "east":{"uv":[1,2,15,16], "texture":"#cardboardBox_side", "cullface": "east"}
+        }
+    }]
+}
