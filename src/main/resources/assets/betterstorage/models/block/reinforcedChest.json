@@ -1,1 +1,97 @@
-{"__comment":"3D Mesh designed with BDcraft Cubik LITE 0.93 Beta - http://bdcraft.net","elements":[{"from":[1,0,1],"to":[15,10,15],"faces":{"down":{"uv":[15,15,1,1],"texture":"#texture"},"up":{"uv":[1,1,15,15],"texture":"#texture"},"north":{"uv":[1,6,15,16],"texture":"#texture"},"south":{"uv":[1,6,15,16],"texture":"#texture"},"west":{"uv":[1,6,15,16],"texture":"#texture"},"east":{"uv":[1,6,15,16],"texture":"#texture"}}},{"from":[1,10,1],"to":[15,14,15],"faces":{"down":{"uv":[15,15,1,1],"texture":"#texture"},"up":{"uv":[1,1,15,15],"texture":"#texture"},"north":{"uv":[1,2,15,6],"texture":"#texture"},"south":{"uv":[1,2,15,6],"texture":"#texture"},"west":{"uv":[1,2,15,6],"texture":"#texture"},"east":{"uv":[1,2,15,6],"texture":"#texture"}}},{"from":[0,8,6.5],"to":[1,12,9.5],"faces":{"down":{"uv":[16,9.5,15,6.5],"texture":"#texture"},"up":{"uv":[0,6.5,1,9.5],"texture":"#texture"},"north":{"uv":[15,4,16,8],"texture":"#texture"},"south":{"uv":[0,4,1,8],"texture":"#texture"},"west":{"uv":[6.5,4,9.5,8],"texture":"#texture"},"east":{"uv":[6.5,4,9.5,8],"texture":"#texture"}}}]}
+{
+   "textures": {
+        "texture": "betterstorage:models/chest/copper"
+    },
+   "elements":[
+      {
+         "from":[1, 0, 1],
+         "to":[15, 10, 15],
+         "faces":{
+            "down":{
+               "uv":[3.5, 0, 7, 3.5],
+               "texture":"#texture"
+            },
+            "up":{
+               "uv":[3.5, 4.75, 7, 8.25],
+               "texture":"#texture"
+            },
+            "north":{
+               "uv":[0, 8.25, 3.5, 10.75],
+               "texture":"#texture"
+            },
+            "south":{
+               "uv":[3.5, 8.25, 7, 10.75],
+               "texture":"#texture"
+            },
+            "west":{
+               "uv":[7, 8.25, 10.5, 10.75],
+               "texture":"#texture"
+            },
+            "east":{
+               "uv":[10.5, 8.25, 14, 10.75],
+               "texture":"#texture"
+            }
+         }
+      },
+      {
+         "from":[1, 10, 1],
+         "to":[15, 14, 15],
+         "faces":{
+            "down":{
+               "uv":[7, 0, 10.5, 3.5],
+               "texture":"#texture"
+            },
+            "up":{
+               "uv":[7, 4.75, 10.5, 8.25],
+               "texture":"#texture"
+            },
+            "north":{
+               "uv":[0, 3.5, 3.5, 4.75],
+               "texture":"#texture"
+            },
+            "south":{
+               "uv":[3.5, 3.5, 7, 4.75],
+               "texture":"#texture"
+            },
+            "west":{
+               "uv":[7, 3.5, 10.5, 4.75],
+               "texture":"#texture"
+            },
+            "east":{
+               "uv":[10.5, 3.5, 14, 4.75],
+               "texture":"#texture"
+            }
+         }
+      },
+      {
+         "from":[0, 8, 6.5],
+         "to":[1, 12, 9.5],
+         "faces":{
+            "down":{
+               "uv":[16, 9.5, 15, 6.5],
+               "texture":"#texture"
+            },
+            "up":{
+               "uv":[0, 6.5, 1,9.5],
+               "texture":"#texture"
+            },
+            "north":{
+               "uv":[15,4,16, 8],
+               "texture":"#texture"
+            },
+            "south":{
+               "uv":[0, 4, 1, 8],
+               "texture":"#texture"
+            },
+            "west":{
+               "uv":[6.5, 4, 9.5, 8],
+               "texture":"#texture"
+            },
+            "east":{
+               "uv":[6.5, 4, 9.5, 8],
+               "texture":"#texture"
+            }
+         }
+      }
+   ]
+}

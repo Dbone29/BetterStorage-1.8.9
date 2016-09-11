@@ -91,27 +91,6 @@ public final class RenderUtils {
 		GL11.glColor4f(r, g, b, 1.0F);
 	}
 	
-	public static void drawTexturedModalRect(int x, int y, int u, int v, int width, int height,
-	                                         float zLevel, int textureWidth, int textureHeight) {
-		float xScale = 1.0F / textureWidth;
-		float yScale = 1.0F / textureHeight;
-		Tessellator tess = Tessellator.getInstance();
-		WorldRenderer worldrenderer = tess.getWorldRenderer();
-		GlStateManager.color(1F, 1F, 1F, 1F);
-		worldrenderer.begin(7, DefaultVertexFormats.POSITION_TEX);
-		worldrenderer.pos(x			, y + height, (v + height) * yScale).endVertex();
-		worldrenderer.pos(x + width	, y + height, (v + height) * yScale).endVertex();
-		worldrenderer.pos(x + width	, y			, (v +      0) * yScale).endVertex();
-		worldrenderer.pos(x			, y			, (v +      0) * yScale).endVertex();
-		worldrenderer.color(0, 0, 0, 0.5F);//.color(0, 0, 0, 0.5F)
-		//tess.startDrawingQuads();
-		//tess.addVertexWithUV(x +     0, y + height, zLevel, (u +     0) * xScale, (v + height) * yScale);
-		//tess.addVertexWithUV(x + width, y + height, zLevel, (u + width) * xScale, (v + height) * yScale);
-		//tess.addVertexWithUV(x + width, y +      0, zLevel, (u + width) * xScale, (v +      0) * yScale);
-		//tess.addVertexWithUV(x +     0, y +      0, zLevel, (u +     0) * xScale, (v +      0) * yScale);
-		tess.draw();
-	}
-	
 	public static void bindTexture(ResourceLocation texture) {
 		Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
 	}

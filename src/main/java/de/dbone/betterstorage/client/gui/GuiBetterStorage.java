@@ -81,8 +81,6 @@ public class GuiBetterStorage extends GuiContainer {
 		int m = 107;
 		int m1 = ySize - m;
 		int m2 = getHeight() - m;
-		//RenderUtils.drawTexturedModalRect(x, y,      0, 0,  xSize, m1, zLevel, w, h);
-		//RenderUtils.drawTexturedModalRect(x, y + m1, 0, m2, xSize, m,  zLevel, w, h);
 		
 		if(getResource() == Resources.containerReinforcedChest && rows <= 3)
 			drawTexturedModalRect(x, y, 0, 0, w, h / 2);

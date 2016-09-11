@@ -91,8 +91,7 @@ public class GuiCraftingStation extends GuiBetterStorage {
 				mc.renderEngine.bindTexture(getResource());
 				int slotX = slot.xDisplayPosition;
 				int slotY = slot.yDisplayPosition;
-				//RenderUtils.drawTexturedModalRect(slotX, slotY, slotX, slotY, 16, 16, 0,
-				//                                  getTextureWidth(), getTextureHeight());
+				
 				drawTexturedModalRect(slotX, slotY, 17, 17, 16, 16);
 				
 				GL11.glDisable(GL11.GL_BLEND);

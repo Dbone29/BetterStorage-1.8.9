@@ -1,6 +1,7 @@
 package de.dbone.betterstorage.client.model;
 
-/*import net.mcft.copy.betterstorage.misc.Resources;
+
+import de.dbone.betterstorage.misc.Resources;
 import net.minecraft.util.ResourceLocation;
 
 public class ModelLargeLocker extends ModelLocker {
@@ -9,4 +10,3 @@ public class ModelLargeLocker extends ModelLocker {
 	protected ResourceLocation modelPath() { return Resources.modelLockerLarge; }
 	
 }
-*/

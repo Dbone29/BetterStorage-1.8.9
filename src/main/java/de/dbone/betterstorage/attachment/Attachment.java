@@ -30,7 +30,6 @@ public abstract class Attachment {
 	public float getRotation() { return DirectionUtils.getRotation(direction); }
 	
 	public AxisAlignedBB getHighlightBox() {
-		//return null;
 		return box.offset(tileEntity.getPos().getX(), tileEntity.getPos().getY(), tileEntity.getPos().getZ());
 	}
 	
@@ -80,7 +79,7 @@ public abstract class Attachment {
 				maxX = x + width / 2; maxZ = z + depth / 2;
 				break;
 		}
-		//box.setBounds(minX, minY, minZ, maxX, maxY, maxZ);
+		box.fromBounds(minX, minY, minZ, maxX, maxY, maxZ);
 	}
 	
 	public void update() {  }
