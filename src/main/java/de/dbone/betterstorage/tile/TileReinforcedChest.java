@@ -32,7 +32,7 @@ public class TileReinforcedChest extends TileLockable {
 		setHardness(8.0F);
 		setResistance(20.0F);
 		setStepSound(soundTypeWood);
-		//setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+		setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		
@@ -77,23 +77,7 @@ public class TileReinforcedChest extends TileLockable {
 		((TileEntityReinforcedChest) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
 	}
 	
-	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn)
-    {
-        if (MathHelper.abs((float)entityIn.posX - clickedBlock.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - clickedBlock.getZ()) < 2.0F)
-        {
-            double d0 = entityIn.posY + entityIn.getEyeHeight();
-
-            if (d0 - clickedBlock.getY() > 2.0D)
-            {
-                return EnumFacing.UP;
-            }
-
-            if (clickedBlock.getY() - d0 > 0.0D)
-            {
-                return EnumFacing.DOWN;
-            }
-        }
-
+	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
         return entityIn.getHorizontalFacing().getOpposite();
     } 
 		
