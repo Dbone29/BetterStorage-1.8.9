@@ -1,6 +1,9 @@
 package de.dbone.betterstorage.client.gui;
 
 import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.WorldRenderer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryBasic;
@@ -9,6 +12,7 @@ import net.minecraft.util.StatCollector;
 
 import org.lwjgl.opengl.GL11;
 
+import de.dbone.betterstorage.addon.thaumcraft.ThaumcraftResources;
 import de.dbone.betterstorage.container.ContainerBetterStorage;
 import de.dbone.betterstorage.misc.Resources;
 import de.dbone.betterstorage.utils.RenderUtils;
@@ -82,13 +86,24 @@ public class GuiBetterStorage extends GuiContainer {
 		int m1 = ySize - m;
 		int m2 = getHeight() - m;
 		
-		if(getResource() == Resources.containerReinforcedChest && rows <= 3)
+		if(getResource() == ThaumcraftResources.thaumiumChestContainer) {
+			w = w / 2;
+			x = x / 2;
+			GL11.glScalef(2, 1, 1);
+			if(rows <= 3)
+				drawTexturedModalRect(x, y, 0, 0, w, h / 2 + 4);
+			else
+				drawTexturedModalRect(x, y, 0, 0, w, h);
+		} else if(getResource() == Resources.containerReinforcedChest && rows <= 3)
 			drawTexturedModalRect(x, y, 0, 0, w, h / 2);
 		else if(getResource() == Resources.containerCraftingStation)
 			drawTexturedModalRect(x, y, 0, 0, xSize, h);			
-		else		
+		else
 			drawTexturedModalRect(x, y, 0, 0, w, h);
 		drawTexturedModalRect(x, y + m1, 0, m2, w, h);
+		
+		if(getResource() == ThaumcraftResources.thaumiumChestContainer)
+			GL11.glScalef((float) 0.5, 1, 1);
 	}
 	
 }

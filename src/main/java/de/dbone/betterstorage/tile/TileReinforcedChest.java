@@ -32,7 +32,6 @@ public class TileReinforcedChest extends TileLockable {
 		setHardness(8.0F);
 		setResistance(20.0F);
 		setStepSound(soundTypeWood);
-		setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		
@@ -47,12 +46,6 @@ public class TileReinforcedChest extends TileLockable {
 	
 	@Override
 	public boolean isOpaqueCube() { return false; }
-	/*@Override
-	public boolean renderAsNormalBlock() { return false; }*/
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderType() { return ClientProxy.reinforcedChestRenderId; }*/
 	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {

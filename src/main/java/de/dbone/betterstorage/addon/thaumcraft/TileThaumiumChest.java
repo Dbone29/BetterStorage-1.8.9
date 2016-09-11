@@ -29,10 +29,6 @@ public class TileThaumiumChest extends TileReinforcedChest {
 	public boolean hasMaterial() { return false; }
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderType() { return ThaumcraftAddon.thaumiumChestRenderId; }
-	
-	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
 			EnumFacing side, float hitX, float hitY, float hitZ) {
 		if(((TileEntityThaumiumChest) worldIn.getTileEntity(pos)).isConnected())

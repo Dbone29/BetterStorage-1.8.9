@@ -1,0 +1,10 @@
+{
+    "variants": {
+
+        "facing=north": { "model": "betterstorage:thaumiumChest" },
+        "facing=east": { "model": "betterstorage:thaumiumChest", "y": 90 },
+        "facing=south": { "model": "betterstorage:thaumiumChest", "y": 180 },
+        "facing=west": { "model": "betterstorage:thaumiumChest", "y": 270 }
+
+    }
+}

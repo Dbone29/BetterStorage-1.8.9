@@ -1,7 +1,7 @@
 {
    "textures": {
-        "texture": "betterstorage:models/chest/iron",
-        "particle": "betterstorage:models/chest/iron"
+        "texture": "betterstorage:models/chest/thaumium",
+        "particle": "betterstorage:models/chest/thaumium"
     },
    "elements":[
       {

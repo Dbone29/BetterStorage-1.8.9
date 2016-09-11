@@ -12,6 +12,8 @@ import de.dbone.betterstorage.misc.Constants;
 import de.dbone.betterstorage.tile.TileBackpack;
 import de.dbone.betterstorage.utils.MiscUtils;
 import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -59,6 +61,10 @@ public class ThaumcraftAddon extends Addon {
 	public void initializeBlocks() {
 		thaumcraftBackpack = MiscUtils.conditionalNew(TileThaumcraftBackpack.class, thaumcraftBackpackEnabled);
 		thaumiumChest = MiscUtils.conditionalNew(TileThaumiumChest.class, thaumiumChestEnabled);
+		
+		if(thaumiumChest != null)
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+				.register(Item.getItemFromBlock(thaumiumChest), 0, new ModelResourceLocation("betterstorage:" + thaumiumChest.getTileName(), "inventory"));
 	}
 	
 	@Override

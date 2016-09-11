@@ -1,10 +1,10 @@
 {
     "variants": {
 
-        "facing=north": { "model": "betterstorage:reinforcedChest", "y": 90 },
-        "facing=east": { "model": "betterstorage:reinforcedChest", "y": 180 },
-        "facing=south": { "model": "betterstorage:reinforcedChest", "y": 270 },
-        "facing=west": { "model": "betterstorage:reinforcedChest" }
+        "facing=north": { "model": "betterstorage:reinforcedChest" },
+        "facing=east": { "model": "betterstorage:reinforcedChest", "y": 90 },
+        "facing=south": { "model": "betterstorage:reinforcedChest", "y": 180 },
+        "facing=west": { "model": "betterstorage:reinforcedChest", "y": 270 }
 
     }
 }
