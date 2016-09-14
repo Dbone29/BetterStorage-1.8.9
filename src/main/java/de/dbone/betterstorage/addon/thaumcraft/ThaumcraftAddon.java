@@ -17,6 +17,7 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
 import thaumcraft.api.aspects.AspectList;
@@ -62,7 +63,7 @@ public class ThaumcraftAddon extends Addon {
 		thaumcraftBackpack = MiscUtils.conditionalNew(TileThaumcraftBackpack.class, thaumcraftBackpackEnabled);
 		thaumiumChest = MiscUtils.conditionalNew(TileThaumiumChest.class, thaumiumChestEnabled);
 		
-		if(thaumiumChest != null)
+		if(!MinecraftServer.getServer().isDedicatedServer() && thaumiumChest != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(thaumiumChest), 0, new ModelResourceLocation("betterstorage:" + thaumiumChest.getTileName(), "inventory"));
 	}

@@ -29,7 +29,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		
 		setHardness(2.5f);
 		setStepSound(soundTypeWood);
-		//setBlockBounds(1 / 16.0F, 1 / 16.0F, 1 / 16.0F, 15 / 16.0F, 15 / 16.0F, 15 / 16.0F);
+		setBlockBounds(1 / 16.0F, 1 / 16.0F, 1 / 16.0F, 15 / 16.0F, 15 / 16.0F, 15 / 16.0F);
 
 		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
 		
@@ -38,12 +38,6 @@ public class TileLocker extends TileContainerBetterStorage {
 	
 	@Override
 	public boolean isOpaqueCube() { return false; }
-	/*@Override
-	public boolean renderAsNormalBlock() { return false; }*/
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderType() { return ClientProxy.lockerRenderId; }*/
 	
 	@Override
 	public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
@@ -51,7 +45,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		return ((locker == null) || (locker.getOrientation() != side));
 	}
 	
-	@Override
+	/*@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {		
 		if(WorldUtils.get(worldIn, pos, TileEntityLocker.class) == null) return;
 		float minX = 0, minY = 0, minZ = 0;
@@ -72,7 +66,7 @@ public class TileLocker extends TileContainerBetterStorage {
 			default: break;
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
-	}
+	}*/
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -83,21 +77,6 @@ public class TileLocker extends TileContainerBetterStorage {
 	
 	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn)
     {
-        if (MathHelper.abs((float)entityIn.posX - clickedBlock.getX()) < 2.0F && MathHelper.abs((float)entityIn.posZ - clickedBlock.getZ()) < 2.0F)
-        {
-            double d0 = entityIn.posY + entityIn.getEyeHeight();
-
-            if (d0 - clickedBlock.getY() > 2.0D)
-            {
-                return EnumFacing.UP;
-            }
-
-            if (clickedBlock.getY() - d0 > 0.0D)
-            {
-                return EnumFacing.DOWN;
-            }
-        }
-
         return entityIn.getHorizontalFacing().getOpposite();
     } 
 		
