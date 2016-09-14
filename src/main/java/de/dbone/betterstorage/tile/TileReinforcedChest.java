@@ -65,9 +65,9 @@ public class TileReinforcedChest extends TileLockable {
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 		worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)), 2);
 		((TileEntityReinforcedChest) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
+		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 	}
 	
 	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {

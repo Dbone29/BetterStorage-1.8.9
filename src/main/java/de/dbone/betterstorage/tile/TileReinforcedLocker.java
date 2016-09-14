@@ -38,19 +38,13 @@ public class TileReinforcedLocker extends TileLockable {
 	
 	@Override
 	public boolean isOpaqueCube() { return false; }
-	/*@Override
-	public boolean renderAsNormalBlock() { return false; }*/
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderType() { return ClientProxy.reinforcedLockerRenderId; }*/
 	
 	@Override
 	public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
 		TileEntityLocker locker = WorldUtils.get(world, pos, TileEntityLocker.class);
 		return ((locker == null) || (locker.getOrientation() != side));
 	}
-	/*@Override
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		super.setBlockBoundsBasedOnState(worldIn, pos);
 		
@@ -64,7 +58,7 @@ public class TileReinforcedLocker extends TileLockable {
 			default: break;
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
-	}*/
+	}
 	
 	@Override
 	public TileEntity createNewTileEntity(World worldIn, int meta) {

@@ -45,7 +45,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		return ((locker == null) || (locker.getOrientation() != side));
 	}
 	
-	/*@Override
+	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {		
 		if(WorldUtils.get(worldIn, pos, TileEntityLocker.class) == null) return;
 		float minX = 0, minY = 0, minZ = 0;
@@ -66,7 +66,7 @@ public class TileLocker extends TileContainerBetterStorage {
 			default: break;
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
-	}*/
+	}
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
@@ -75,8 +75,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		((TileEntityLocker) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
 	}
 	
-	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn)
-    {
+	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
         return entityIn.getHorizontalFacing().getOpposite();
     } 
 		
