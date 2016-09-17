@@ -1,0 +1,10 @@
+{
+    "variants": {
+
+        "facing=north": { "model": "betterstorage:reinforcedLocker" },
+        "facing=east": { "model": "betterstorage:reinforcedLocker", "y": 90 },
+        "facing=south": { "model": "betterstorage:reinforcedLocker", "y": 180 },
+        "facing=west": { "model": "betterstorage:reinforcedLocker", "y": 270 }
+
+    }
+}

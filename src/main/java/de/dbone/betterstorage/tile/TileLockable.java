@@ -18,6 +18,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.util.Vec3;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -47,7 +49,7 @@ public abstract class TileLockable extends TileContainerBetterStorage {
 	@Override
 	public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
 		//if (hasMaterial())
-		//	dropBlockAsItem(world, x, y, z, WorldUtils.get(world, x, y, z, TileEntityLockable.class).material.setMaterial(new ItemStack(this, 1, 0)));
+			//dropBlockAsItem(world, pos, WorldUtils.get(world, pos, TileEntityLockable.class).material.setMaterial(new ItemStack(this, 1, 0)));
 		super.onBlockExploded(world, pos, explosion);
 	}
 	

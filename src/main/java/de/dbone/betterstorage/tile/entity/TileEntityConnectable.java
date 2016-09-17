@@ -54,7 +54,10 @@ public abstract class TileEntityConnectable extends TileEntityContainer implemen
 		int x = pos.getX() + connected.getFrontOffsetX();
 		int y = pos.getY() + connected.getFrontOffsetY();
 		int z = pos.getZ() + connected.getFrontOffsetZ();
-		return WorldUtils.get(worldObj, new BlockPos(x, y, z), TileEntityConnectable.class);
+		TileEntityConnectable result = WorldUtils.get(worldObj, new BlockPos(x, y, z), TileEntityConnectable.class);
+		if(result == null)
+			setConnected(null);
+		return result;
 	}
 	
 	/** Returns if the container can connect to the other container. */

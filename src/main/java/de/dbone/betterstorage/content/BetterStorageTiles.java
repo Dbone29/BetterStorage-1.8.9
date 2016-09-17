@@ -71,16 +71,21 @@ public final class BetterStorageTiles {
 		if(armorStand != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(armorStand), 0, new ModelResourceLocation("betterstorage:" + armorStand.getTileName(), "inventory"));
+		if(backpack != null)
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+				.register(Item.getItemFromBlock(backpack), 0, new ModelResourceLocation("betterstorage:" + backpack.getTileName(), "inventory"));
 		if(cardboardBox != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(cardboardBox), 0, new ModelResourceLocation("betterstorage:" + cardboardBox.getTileName(), "inventory"));
-		if(flintBlock != null) {
+				.register(Item.getItemFromBlock(cardboardBox), 0, new ModelResourceLocation("betterstorage:" + cardboardBox.getTileName(), "inventory"));		
+		if(reinforcedLocker != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(flintBlock), 0, new ModelResourceLocation("betterstorage:" + flintBlock.getTileName(), "inventory"));
-		}
+				.register(Item.getItemFromBlock(reinforcedLocker), 0, new ModelResourceLocation("betterstorage:" + reinforcedLocker.getTileName(), "inventory"));
 		if(craftingStation != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(craftingStation), 0, new ModelResourceLocation("betterstorage:" + craftingStation.getTileName(), "inventory"));
+		if(flintBlock != null)
+			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+				.register(Item.getItemFromBlock(flintBlock), 0, new ModelResourceLocation("betterstorage:" + flintBlock.getTileName(), "inventory"));
 	}
 	
 }

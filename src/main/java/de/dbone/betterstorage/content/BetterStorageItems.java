@@ -103,9 +103,12 @@ public final class BetterStorageItems {
 		if(lock != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(lock, 0, new ModelResourceLocation("betterstorage:" + lock.getItemName(), "inventory"));
-		if(keyring != null)
+		if(keyring != null) {
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(keyring, 0, new ModelResourceLocation("betterstorage:" + keyring.getItemName(), "inventory"));
+			//Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
+			//	.register(keyring, 1, new ModelResourceLocation("betterstorage:" + keyring.getItemName() + "_1", "inventory"));
+		}
 		if (cardboardSheet != null) {
 			OreDictionary.registerOre("sheetCardboard", cardboardSheet);
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()

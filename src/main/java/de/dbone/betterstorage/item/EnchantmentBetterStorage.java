@@ -48,6 +48,10 @@ public class EnchantmentBetterStorage extends Enchantment {
 			enchs.put("unlocking", unlocking);
 			enchs.put("lockpicking", lockpicking);
 			enchs.put("morphing", morphing);
+			
+			Enchantment.addToBookList(unlocking);			
+			Enchantment.addToBookList(lockpicking);			
+			Enchantment.addToBookList(morphing);
 		}
 		
 		// Add lock enchantments
@@ -65,6 +69,11 @@ public class EnchantmentBetterStorage extends Enchantment {
 			enchs.put("security", security);
 			enchs.put("shock", shock);
 			enchs.put("trigger", trigger);
+			
+			Enchantment.addToBookList(persistance);			
+			Enchantment.addToBookList(security);			
+			Enchantment.addToBookList(shock);			
+			Enchantment.addToBookList(trigger);
 		}
 		
 	}

@@ -86,6 +86,7 @@ public class TileReinforcedChest extends TileLockable {
 	       
 	        return i;
 	}
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState();

@@ -46,23 +46,15 @@ public class TileLocker extends TileContainerBetterStorage {
 	}
 	
 	@Override
-	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {		
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		if(WorldUtils.get(worldIn, pos, TileEntityLocker.class) == null) return;
 		float minX = 0, minY = 0, minZ = 0;
 		float maxX = 1, maxY = 1, maxZ = 1;
 		switch (WorldUtils.get(worldIn, pos, TileEntityLocker.class).getOrientation()) {
-			case EAST:
-				maxX -= 1.0F / 16;
-				break;
-			case WEST:
-				minX += 1.0F / 16;
-				break;
-			case SOUTH:
-				maxZ -= 1.0F / 16;
-				break;
-			case NORTH:
-				minZ += 1.0F / 16;
-				break;
+			case EAST: maxX -= 1.0F / 16; break;
+			case WEST: minX += 1.0F / 16; break;
+			case SOUTH: maxZ -= 1.0F / 16; break;
+			case NORTH: minZ += 1.0F / 16; break;
 			default: break;
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
@@ -91,6 +83,7 @@ public class TileLocker extends TileContainerBetterStorage {
 	       
 	        return i;
 	}
+	
 	@Override
 	public IBlockState getStateFromMeta(int meta) { return this.getDefaultState(); }
 	
