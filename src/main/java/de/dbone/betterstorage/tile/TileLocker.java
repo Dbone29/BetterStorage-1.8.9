@@ -7,6 +7,7 @@ import de.dbone.betterstorage.utils.GuiHandler;
 import de.dbone.betterstorage.utils.WorldUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.properties.PropertyDirection;
 import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +24,7 @@ import net.minecraft.world.World;
 public class TileLocker extends TileContainerBetterStorage {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+	public static final PropertyBool MIRROR = PropertyBool.create("mirror");
 	
 	public TileLocker() {
 		super(Material.wood);
@@ -31,7 +33,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		setStepSound(soundTypeWood);
 		setBlockBounds(1 / 16.0F, 1 / 16.0F, 1 / 16.0F, 15 / 16.0F, 15 / 16.0F, 15 / 16.0F);
 
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MIRROR, false));
 		
 		setHarvestLevel("axe", 0);
 	}
@@ -62,14 +64,30 @@ public class TileLocker extends TileContainerBetterStorage {
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)), 2);
-		((TileEntityLocker) worldIn.getTileEntity(pos)).setOrientation(getFacingFromEntity(worldIn, pos, placer));
+		EnumFacing oriantation = placer.getHorizontalFacing().getOpposite();
+		boolean mirror;
+		
+		switch(oriantation) {
+		case NORTH:
+			mirror = placer.posX > (pos.getX() + 0.5);
+			break;
+		case SOUTH:
+			mirror = placer.posX < (pos.getX() + 0.5);
+			break;
+		case EAST:
+			mirror = placer.posZ > (pos.getZ() + 0.5);
+			break;
+		case WEST:
+			mirror = placer.posZ < (pos.getZ() + 0.5);
+			break;
+		default:
+			mirror = false;
+		}
+		
+		worldIn.setBlockState(pos, state.withProperty(FACING, oriantation).withProperty(MIRROR, mirror), 2);
+		((TileEntityLocker) worldIn.getTileEntity(pos)).setOrientation(oriantation);
 		((TileEntityLocker) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
 	}
-	
-	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
-        return entityIn.getHorizontalFacing().getOpposite();
-    } 
 		
 	@Override
 	public boolean hasComparatorInputOverride() {
@@ -78,10 +96,10 @@ public class TileLocker extends TileContainerBetterStorage {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-	        byte b0 = 0;
-	        int i = b0 | state.getValue(FACING).getIndex();
-	       
-	        return i;
+		if(state.getValue(MIRROR))
+			return state.getValue(FACING).getIndex() + EnumFacing.VALUES.length;
+		else
+			return state.getValue(FACING).getIndex();
 	}
 	
 	@Override
@@ -89,7 +107,7 @@ public class TileLocker extends TileContainerBetterStorage {
 	
 	@Override
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING});
+		return new BlockState(this, new IProperty[] {FACING, MIRROR});
 	}
 
 	@Override

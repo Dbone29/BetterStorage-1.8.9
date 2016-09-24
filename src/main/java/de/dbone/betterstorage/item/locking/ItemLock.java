@@ -56,10 +56,6 @@ public class ItemLock extends ItemBetterStorage implements ILock {
 		if (!world.isRemote) ensureHasID(stack);
 	}
 	
-	/*@SideOnly(Side.CLIENT)
-	@Override
-	public boolean requiresMultipleRenderPasses() { return true; }*/
-	
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass) {

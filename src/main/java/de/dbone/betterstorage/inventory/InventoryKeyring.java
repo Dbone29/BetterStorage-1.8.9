@@ -26,7 +26,12 @@ public class InventoryKeyring extends InventoryItem {
 		int count = 0;
 		for (ItemStack stack : allContents[0])
 			if (stack != null) count++;
-		stack.setItemDamage(count);
+		
+		if(count > 3)
+			stack.setItemDamage(3);
+		else
+			stack.setItemDamage(count);
+		
 		super.updateStack();
 	}
 	

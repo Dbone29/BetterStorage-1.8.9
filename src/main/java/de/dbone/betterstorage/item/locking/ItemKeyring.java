@@ -9,24 +9,25 @@ import de.dbone.betterstorage.utils.StackUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.BlockPos;
 import net.minecraft.world.World;
 
 public class ItemKeyring extends ItemBetterStorage implements IKey, IContainerItem {
-	
-	/*@Override
-	@SideOnly(Side.CLIENT)
-	public IIcon getIconFromDamage(int damage) {
-		return icons[Math.min(damage, icons.length - 1)];
-	}*/
 	
 	@Override
 	public ItemStack onItemRightClick(ItemStack stack, World world, EntityPlayer player) {
 		if (world.isRemote || !player.isSneaking()) return stack;
 		
-		player.openGui(BetterStorage.instance, GuiHandler.GUI_KEYRING, world,
-				player.getPosition().getX(), player.getPosition().getY(), player.getPosition().getZ());
+		final BlockPos pos = player.getPosition();		
+		player.openGui(BetterStorage.instance, GuiHandler.GUI_KEYRING, world, pos.getX(), pos.getY(), pos.getZ());
 		
 		return stack;
+	}
+	
+	@Override
+	public void setDamage(ItemStack stack, int damage) {
+		//return icons[Math.min(damage, icons.length - 1)];
+		super.setDamage(stack, damage);
 	}
 	
 	// IKey implementation

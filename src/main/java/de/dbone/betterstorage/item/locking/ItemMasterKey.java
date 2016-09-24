@@ -39,15 +39,10 @@ public class ItemMasterKey extends ItemKey {
 	public void onCreated(ItemStack stack, World world, EntityPlayer player) {  }
 	@Override
 	public void onUpdate(ItemStack stack, World world, Entity entity, int slot, boolean isBeingHeld) {  }
-	
-	/*@SideOnly(Side.CLIENT)
-	@Override
-	public boolean requiresMultipleRenderPasses() { return false; }*/
+
 	@SideOnly(Side.CLIENT)
 	@Override
 	public int getColorFromItemStack(ItemStack stack, int renderPass) { return 0xFFFFFF; }
-	/*@Override
-	public IIcon getIcon(ItemStack stack, int renderPass) { return itemIcon; }*/
 	
 	// IKey implementation
 	

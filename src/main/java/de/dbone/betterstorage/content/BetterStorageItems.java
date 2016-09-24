@@ -21,6 +21,7 @@ import de.dbone.betterstorage.item.locking.ItemLock;
 import de.dbone.betterstorage.item.locking.ItemMasterKey;
 import de.dbone.betterstorage.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.server.MinecraftServer;
 import net.minecraftforge.oredict.OreDictionary;
@@ -97,69 +98,56 @@ public final class BetterStorageItems {
 	}
 
 	private static void registerItemModelMeshers() {
+		
+		final ItemModelMesher mesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
+		
 		if(key != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(key, 0, new ModelResourceLocation("betterstorage:" + key.getItemName(), "inventory"));
+			mesher.register(key, 0, new ModelResourceLocation(key.getRegistryName(), "inventory"));
 		if(lock != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(lock, 0, new ModelResourceLocation("betterstorage:" + lock.getItemName(), "inventory"));
+			mesher.register(lock, 0, new ModelResourceLocation(lock.getRegistryName(), "inventory"));
 		if(keyring != null) {
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(keyring, 0, new ModelResourceLocation("betterstorage:" + keyring.getItemName(), "inventory"));
-			//Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-			//	.register(keyring, 1, new ModelResourceLocation("betterstorage:" + keyring.getItemName() + "_1", "inventory"));
+			mesher.register(keyring, 0, new ModelResourceLocation(keyring.getRegistryName(), "inventory"));
+			mesher.register(keyring, 1, new ModelResourceLocation(keyring.getRegistryName() + "One", "inventory"));
+			mesher.register(keyring, 2, new ModelResourceLocation(key.getRegistryName(), "inventory"));
+			mesher.register(keyring, 3, new ModelResourceLocation(masterKey.getRegistryName(), "inventory"));
 		}
 		if (cardboardSheet != null) {
 			OreDictionary.registerOre("sheetCardboard", cardboardSheet);
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardSheet, 0, new ModelResourceLocation("betterstorage:" + cardboardSheet.getItemName(), "inventory"));
+			mesher.register(cardboardSheet, 0, new ModelResourceLocation(cardboardSheet.getRegistryName(), "inventory"));
 		}
 		if(masterKey != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(masterKey, 0, new ModelResourceLocation("betterstorage:" + masterKey.getItemName(), "inventory"));
+			mesher.register(masterKey, 0, new ModelResourceLocation(masterKey.getRegistryName(), "inventory"));
 		if(drinkingHelmet != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(drinkingHelmet, 0, new ModelResourceLocation("betterstorage:" + drinkingHelmet.getItemName(), "inventory"));
+			mesher.register(drinkingHelmet, 0, new ModelResourceLocation(drinkingHelmet.getRegistryName(), "inventory"));
 		if(slimeBucket != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(slimeBucket, 0, new ModelResourceLocation("betterstorage:" + slimeBucket.getItemName(), "inventory"));
+			mesher.register(slimeBucket, 0, new ModelResourceLocation(slimeBucket.getRegistryName(), "inventory"));
 		if(presentBook != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(presentBook, 0, new ModelResourceLocation("betterstorage:presentBook", "inventory"));
+			mesher.register(presentBook, 0, new ModelResourceLocation("betterstorage:presentBook", "inventory"));
 		
 		
 		
 		if(cardboardHelmet != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardHelmet, 0, new ModelResourceLocation("betterstorage:" + cardboardHelmet.getItemName(), "inventory"));
+			mesher.register(cardboardHelmet, 0, new ModelResourceLocation(cardboardHelmet.getRegistryName(), "inventory"));
 		if(cardboardChestplate != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardChestplate, 0, new ModelResourceLocation("betterstorage:" + cardboardChestplate.getItemName(), "inventory"));
+			mesher.register(cardboardChestplate, 0, new ModelResourceLocation(cardboardChestplate.getRegistryName(), "inventory"));
 		if(cardboardLeggings != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardLeggings, 0, new ModelResourceLocation("betterstorage:" + cardboardLeggings.getItemName(), "inventory"));
+			mesher.register(cardboardLeggings, 0, new ModelResourceLocation(cardboardLeggings.getRegistryName(), "inventory"));
 		if(cardboardBoots != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardBoots, 0, new ModelResourceLocation("betterstorage:" + cardboardBoots.getItemName(), "inventory"));
+			mesher.register(cardboardBoots, 0, new ModelResourceLocation(cardboardBoots.getRegistryName(), "inventory"));
 		
 		
 		
 
 		if(cardboardSword != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardSword, 0, new ModelResourceLocation("betterstorage:" + cardboardSword.getItemName(), "inventory"));
+			mesher.register(cardboardSword, 0, new ModelResourceLocation(cardboardSword.getRegistryName(), "inventory"));
 		if(cardboardPickaxe != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardPickaxe, 0, new ModelResourceLocation("betterstorage:" + cardboardPickaxe.getItemName(), "inventory"));
+			mesher.register(cardboardPickaxe, 0, new ModelResourceLocation(cardboardPickaxe.getRegistryName(), "inventory"));
 		if(cardboardShovel != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardShovel, 0, new ModelResourceLocation("betterstorage:" + cardboardShovel.getItemName(), "inventory"));
+			mesher.register(cardboardShovel, 0, new ModelResourceLocation(cardboardShovel.getRegistryName(), "inventory"));
 		if(cardboardAxe != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardAxe, 0, new ModelResourceLocation("betterstorage:" + cardboardAxe.getItemName(), "inventory"));
+			mesher.register(cardboardAxe, 0, new ModelResourceLocation(cardboardAxe.getRegistryName(), "inventory"));
 		if(cardboardHoe != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(cardboardHoe, 0, new ModelResourceLocation("betterstorage:" + cardboardHoe.getItemName(), "inventory"));
+			mesher.register(cardboardHoe, 0, new ModelResourceLocation(cardboardHoe.getRegistryName(), "inventory"));
 	}
 	
 	private static ItemCardboardArmor conditionalNewArmor(String configName, int armorType) {
