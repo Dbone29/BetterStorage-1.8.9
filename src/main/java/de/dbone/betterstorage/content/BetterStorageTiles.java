@@ -13,7 +13,6 @@ import de.dbone.betterstorage.tile.TilePresent;
 import de.dbone.betterstorage.tile.TileReinforcedChest;
 import de.dbone.betterstorage.tile.TileReinforcedLocker;
 import de.dbone.betterstorage.tile.crate.TileCrate;
-import de.dbone.betterstorage.tile.stand.TileArmorStand;
 import de.dbone.betterstorage.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
@@ -25,7 +24,6 @@ public final class BetterStorageTiles {
 	public static TileCrate crate;
 	public static TileReinforcedChest reinforcedChest;
 	public static TileLocker locker;
-	public static TileArmorStand armorStand;
 	public static TileBackpack backpack;
 	public static TileEnderBackpack enderBackpack;
 	public static TileCardboardBox cardboardBox;
@@ -42,7 +40,6 @@ public final class BetterStorageTiles {
 		crate            = MiscUtils.conditionalNew(TileCrate.class, GlobalConfig.crateEnabled);
 		reinforcedChest  = MiscUtils.conditionalNew(TileReinforcedChest.class, GlobalConfig.reinforcedChestEnabled);
 		locker           = MiscUtils.conditionalNew(TileLocker.class, GlobalConfig.lockerEnabled);
-		armorStand       = MiscUtils.conditionalNew(TileArmorStand.class, GlobalConfig.armorStandEnabled);
 		backpack         = MiscUtils.conditionalNew(TileBackpack.class, GlobalConfig.backpackEnabled);
 		enderBackpack    = MiscUtils.conditionalNew(TileEnderBackpack.class, GlobalConfig.enderBackpackEnabled);
 		cardboardBox     = MiscUtils.conditionalNew(TileCardboardBox.class, GlobalConfig.cardboardBoxEnabled);
@@ -68,9 +65,6 @@ public final class BetterStorageTiles {
 		if(locker != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(locker), 0, new ModelResourceLocation("betterstorage:" + locker.getTileName(), "inventory"));
-		if(armorStand != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(armorStand), 0, new ModelResourceLocation("betterstorage:" + armorStand.getTileName(), "inventory"));
 		if(backpack != null)
 			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
 				.register(Item.getItemFromBlock(backpack), 0, new ModelResourceLocation("betterstorage:" + backpack.getTileName(), "inventory"));

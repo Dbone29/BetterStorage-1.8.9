@@ -1,8 +1,6 @@
 package de.dbone.betterstorage.proxy;
 
 import de.dbone.betterstorage.BetterStorage;
-import de.dbone.betterstorage.api.stand.BetterStorageArmorStand;
-import de.dbone.betterstorage.api.stand.EnumArmorStandRegion;
 import de.dbone.betterstorage.attachment.EnumAttachmentInteraction;
 import de.dbone.betterstorage.attachment.IHasAttachments;
 import de.dbone.betterstorage.config.GlobalConfig;
@@ -20,7 +18,6 @@ import de.dbone.betterstorage.misc.handlers.BackpackHandler;
 import de.dbone.betterstorage.misc.handlers.CraftingHandler;
 import de.dbone.betterstorage.tile.crate.CratePileCollection;
 import de.dbone.betterstorage.tile.entity.TileEntityLockableDoor;
-import de.dbone.betterstorage.tile.stand.VanillaArmorStandEquipHandler;
 import de.dbone.betterstorage.utils.StackUtils;
 import de.dbone.betterstorage.utils.WorldUtils;
 import net.minecraft.block.Block;
@@ -65,22 +62,6 @@ public class CommonProxy {
 		
 		if (BetterStorage.globalConfig.getBoolean(GlobalConfig.enableChristmasEvent))
 			new ChristmasEventHandler();
-		
-		registerArmorStandHandlers();
-	}
-	
-	protected void registerArmorStandHandlers() {
-		
-		BetterStorageArmorStand.helmet     = new VanillaArmorStandEquipHandler(EnumArmorStandRegion.HEAD);
-		BetterStorageArmorStand.chestplate = new VanillaArmorStandEquipHandler(EnumArmorStandRegion.CHEST);
-		BetterStorageArmorStand.leggins    = new VanillaArmorStandEquipHandler(EnumArmorStandRegion.LEGS);
-		BetterStorageArmorStand.boots      = new VanillaArmorStandEquipHandler(EnumArmorStandRegion.FEET);
-		
-		BetterStorageArmorStand.registerEquipHandler(BetterStorageArmorStand.helmet);
-		BetterStorageArmorStand.registerEquipHandler(BetterStorageArmorStand.chestplate);
-		BetterStorageArmorStand.registerEquipHandler(BetterStorageArmorStand.leggins);
-		BetterStorageArmorStand.registerEquipHandler(BetterStorageArmorStand.boots);
-		
 	}
 	
 	@SubscribeEvent

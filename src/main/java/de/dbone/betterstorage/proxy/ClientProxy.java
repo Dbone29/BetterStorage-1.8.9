@@ -18,9 +18,6 @@ import net.minecraftforge.client.event.RenderPlayerEvent;
 
 import org.lwjgl.opengl.GL11;
 
-import de.dbone.betterstorage.api.stand.ArmorStandEquipHandler;
-import de.dbone.betterstorage.api.stand.BetterStorageArmorStand;
-import de.dbone.betterstorage.api.stand.EnumArmorStandRegion;
 import de.dbone.betterstorage.attachment.Attachment;
 import de.dbone.betterstorage.attachment.Attachments;
 import de.dbone.betterstorage.attachment.IHasAttachments;
@@ -29,9 +26,6 @@ import de.dbone.betterstorage.client.model.ModelBackpackArmor;
 import de.dbone.betterstorage.item.ItemBackpack;
 import de.dbone.betterstorage.misc.Resources;
 import de.dbone.betterstorage.misc.handlers.KeyBindingHandler;
-import de.dbone.betterstorage.tile.stand.TileArmorStand;
-import de.dbone.betterstorage.tile.stand.TileEntityArmorStand;
-import de.dbone.betterstorage.tile.stand.VanillaArmorStandRenderHandler;
 import de.dbone.betterstorage.utils.RenderUtils;
 import de.dbone.betterstorage.utils.WorldUtils;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -55,12 +49,6 @@ public class ClientProxy extends CommonProxy {
 		new KeyBindingHandler();
 	}
 	
-	@Override
-	protected void registerArmorStandHandlers() {
-		super.registerArmorStandHandlers();
-		BetterStorageArmorStand.registerRenderHandler(new VanillaArmorStandRenderHandler());
-	}
-	
 	@SubscribeEvent
 	public void drawBlockHighlight(DrawBlockHighlightEvent event) {
 		
@@ -76,10 +64,8 @@ public class ClientProxy extends CommonProxy {
 		AxisAlignedBB box = null;
 		Block block = world.getBlockState(new BlockPos(x, y, z)).getBlock();
 		TileEntity tileEntity = world.getTileEntity(new BlockPos(x, y, z));
-		
-		if (block instanceof TileArmorStand)
-			box = getArmorStandHighlightBox(player, world, x, y, z, target.hitVec);
-		else if (block == Blocks.iron_door)
+
+		if (block == Blocks.iron_door)
 			box = getIronDoorHightlightBox(player, world, x, y, z, target.hitVec, block);
 		else if (tileEntity instanceof IHasAttachments)
 			box = getAttachmentPointsHighlightBox(player, tileEntity, target);
@@ -106,47 +92,7 @@ public class ClientProxy extends CommonProxy {
 		
 		event.setCanceled(true);
 		
-	}
-
-	private AxisAlignedBB getArmorStandHighlightBox(EntityPlayer player, World world, int x, int y, int z, Vec3 hitVec) {
-		
-		int metadata = world.getBlockState(new BlockPos(x, y, z)).getBlock().getMetaFromState(world.getBlockState(new BlockPos(x, y, z)));
-		if (metadata > 0) y -= 1;
-		
-		TileEntityArmorStand armorStand = WorldUtils.get(world, new BlockPos(x, y, z), TileEntityArmorStand.class);
-		if (armorStand == null) return null;
-		
-		int slot = Math.max(0, Math.min(3, (int)((hitVec.yCoord - y) * 2)));
-		
-		double minX = x + 2 / 16.0;
-		double minY = y + slot / 2.0;
-		double minZ = z + 2 / 16.0;
-		double maxX = x + 14 / 16.0;
-		double maxY = y + slot / 2.0 + 0.5;
-		double maxZ = z + 14 / 16.0;
-		
-		EnumArmorStandRegion region = EnumArmorStandRegion.values()[slot];
-		for (ArmorStandEquipHandler handler : BetterStorageArmorStand.getEquipHandlers(region)) {
-			ItemStack item = armorStand.getItem(handler);
-			if (player.isSneaking()) {
-				// Check if we can swap the player's equipped armor with armor stand's.
-				ItemStack equipped = handler.getEquipment(player);
-				if (((item == null) && (equipped == null)) ||
-				    ((item != null) && !handler.isValidItem(player, item)) ||
-				    ((equipped != null) && !handler.isValidItem(player, equipped)) ||
-				    !handler.canSetEquipment(player, item)) continue;
-				return AxisAlignedBB.fromBounds(minX, minY, minZ, maxX, maxY, maxZ);
-			} else {
-				// Check if we can swap the player's held item with armor stand's.
-				ItemStack holding = player.getCurrentEquippedItem();
-				if (((item == null) && (holding == null)) ||
-				    ((holding != null) && !handler.isValidItem(player, holding))) continue;
-				return AxisAlignedBB.fromBounds(minX, minY, minZ, maxX, maxY, maxZ);
-			}
-		}
-		
-		return AxisAlignedBB.fromBounds(minX, y, minZ, maxX, y + 2, maxZ);		
-	}
+	}	
 	
 	private AxisAlignedBB getAttachmentPointsHighlightBox(EntityPlayer player, TileEntity tileEntity,
 	                                                      MovingObjectPosition target) {

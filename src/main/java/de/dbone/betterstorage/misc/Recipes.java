@@ -89,15 +89,6 @@ public final class Recipes {
 				}
 		}
 		
-		// Armor stand recipe
-		if (BetterStorageTiles.armorStand != null)
-			GameRegistry.addShapedRecipe(new ItemStack(BetterStorageTiles.armorStand),
-					" i ",
-					"/i/",
-					" s ", 's', new ItemStack(Blocks.stone_slab, 1, 0),
-					       'i', Items.iron_ingot,
-					       '/', Items.stick);
-		
 		// Backpack recipe
 		if (BetterStorageTiles.backpack != null)
 			GameRegistry.addShapedRecipe(new ItemStack(BetterStorageItems.itemBackpack),

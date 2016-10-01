@@ -11,7 +11,6 @@ import de.dbone.betterstorage.tile.entity.TileEntityLocker;
 import de.dbone.betterstorage.tile.entity.TileEntityPresent;
 import de.dbone.betterstorage.tile.entity.TileEntityReinforcedChest;
 import de.dbone.betterstorage.tile.entity.TileEntityReinforcedLocker;
-import de.dbone.betterstorage.tile.stand.TileEntityArmorStand;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public final class BetterStorageTileEntities {
@@ -23,7 +22,6 @@ public final class BetterStorageTileEntities {
 		GameRegistry.registerTileEntity(TileEntityCrate.class, Constants.containerCrate);
 		GameRegistry.registerTileEntity(TileEntityReinforcedChest.class, Constants.containerReinforcedChest);
 		GameRegistry.registerTileEntity(TileEntityLocker.class, Constants.containerLocker);
-		GameRegistry.registerTileEntity(TileEntityArmorStand.class, Constants.containerArmorStand);
 		GameRegistry.registerTileEntity(TileEntityBackpack.class, Constants.containerBackpack);
 		GameRegistry.registerTileEntity(TileEntityCardboardBox.class, Constants.containerCardboardBox);
 		GameRegistry.registerTileEntity(TileEntityReinforcedLocker.class, Constants.containerReinforcedLocker);
