@@ -5,6 +5,7 @@ import java.util.Random;
 import de.dbone.betterstorage.BetterStorage;
 import de.dbone.betterstorage.config.GlobalConfig;
 import de.dbone.betterstorage.content.BetterStorageItems;
+import de.dbone.betterstorage.content.BetterStorageTiles;
 import de.dbone.betterstorage.item.ItemBackpack;
 import de.dbone.betterstorage.proxy.ClientProxy;
 import de.dbone.betterstorage.tile.entity.TileEntityBackpack;
@@ -17,6 +18,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.ChatComponentTranslation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -45,21 +47,20 @@ public class TileBackpack extends TileContainerBetterStorage {
 	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		float w = getBoundsWidth() / 16.0F;
-		float h = getBoundsHeight() / 16.0F;
-		float d = getBoundsDepth() / 16.0F;
-		/*EnumFacing orientation = EnumFacing.getOrientation(worldIn.getBlockState(pos).getBlock());//meta?
-		if ((orientation == EnumFacing.NORTH) || (orientation == EnumFacing.SOUTH))
-			setBlockBounds(0.5F - w / 2, 0.0F, 0.5F - d / 2, 0.5F + w / 2, h, 0.5F + d / 2);
-		else if ((orientation == EnumFacing.WEST) || (orientation == EnumFacing.EAST))
-			setBlockBounds(0.5F - d / 2, 0.0F, 0.5F - w / 2, 0.5F + d / 2, h, 0.5F + w / 2);
-		else setBlockBounds(0.5F - w / 2, 0.0F, 0.5F - w / 2, 0.5F + w / 2, h, 0.5F + w / 2);*/
+		final float w = getBoundsWidth() / 16.0F;
+		final float h = getBoundsHeight() / 16.0F;
+		final float d = getBoundsDepth() / 16.0F;
+		final EnumFacing orientation = EnumFacing.getFront(BetterStorageTiles.backpack.getMetaFromState(worldIn.getBlockState(pos)));
+		
+		switch (orientation) {
+		case NORTH:	case SOUTH:	setBlockBounds(0.5F - w / 2, 0.0F, 0.5F - d / 2, 0.5F + w / 2, h, 0.5F + d / 2); break;
+		case WEST:	case EAST:	setBlockBounds(0.5F - d / 2, 0.0F, 0.5F - w / 2, 0.5F + d / 2, h, 0.5F + w / 2); break;
+		default:				setBlockBounds(0.5F - w / 2, 0.0F, 0.5F - w / 2, 0.5F + w / 2, h, 0.5F + w / 2);
+		}
 	}
 	
 	@Override
 	public boolean isOpaqueCube() { return false; }
-	/*@Override
-	public boolean renderAsNormalBlock() { return false; }*/
 	
 	@Override
 	@SideOnly(Side.CLIENT)

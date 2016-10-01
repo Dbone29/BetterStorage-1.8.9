@@ -51,6 +51,7 @@ public class TileReinforcedLocker extends TileLockable {
 		TileEntityLocker locker = WorldUtils.get(world, pos, TileEntityLocker.class);
 		return ((locker == null) || (locker.getOrientation() != side));
 	}
+	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
 		super.setBlockBoundsBasedOnState(worldIn, pos);
@@ -58,11 +59,11 @@ public class TileReinforcedLocker extends TileLockable {
 		float minX = 0, minY = 0, minZ = 0;
 		float maxX = 1, maxY = 1, maxZ = 1;
 		switch (WorldUtils.get(worldIn, pos, TileEntityReinforcedLocker.class).getOrientation()) {
-			case EAST: maxX -= 1.0F / 16; break;
-			case WEST: minX += 1.0F / 16; break;
-			case SOUTH: maxZ -= 1.0F / 16; break;
-			case NORTH: minZ += 1.0F / 16; break;
-			default: break;
+			case EAST:	maxX -= 1.0F / 16; break;
+			case WEST:	minX += 1.0F / 16; break;
+			case SOUTH:	maxZ -= 1.0F / 16; break;
+			case NORTH:	minZ += 1.0F / 16; break;
+			default:
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
 	}
@@ -70,8 +71,9 @@ public class TileReinforcedLocker extends TileLockable {
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
 		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
-		((TileEntityReinforcedLocker) worldIn.getTileEntity(pos)).setOrientation(placer.getHorizontalFacing().getOpposite());
-		((TileEntityReinforcedLocker) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
+		final TileEntityReinforcedLocker entity = ((TileEntityReinforcedLocker) worldIn.getTileEntity(pos));
+		entity.setOrientation(placer.getHorizontalFacing().getOpposite());
+		entity.onBlockPlaced(placer, stack);
 	}
 		
 	@Override
@@ -81,10 +83,7 @@ public class TileReinforcedLocker extends TileLockable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-	        byte b0 = 0;
-	        int i = b0 | state.getValue(FACING).getIndex();
-	       
-	        return i;
+	    return state.getValue(FACING).getIndex();
 	}
 	
 	@Override

@@ -125,7 +125,7 @@ public class TileEntityPresent extends TileEntityCardboardBox {
 					WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);*/
 			} else if (worldObj.setBlockToAir(pos))
 				for (ItemStack stack : contents)
-					WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+					WorldUtils.dropStackFromBlock(worldObj, pos, stack);
 			return true;
 			
 		} else if ((holding.getItem() == Items.name_tag) &&

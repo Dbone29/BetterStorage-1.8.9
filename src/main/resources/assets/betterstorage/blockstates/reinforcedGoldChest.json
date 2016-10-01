@@ -1,0 +1,10 @@
+{
+    "variants": {
+
+        "facing=north": { "model": "betterstorage:reinforcedGoldChest" },
+        "facing=east": { "model": "betterstorage:reinforcedGoldChest", "y": 90 },
+        "facing=south": { "model": "betterstorage:reinforcedGoldChest", "y": 180 },
+        "facing=west": { "model": "betterstorage:reinforcedGoldChest", "y": 270 }
+
+    }
+}

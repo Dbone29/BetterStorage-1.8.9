@@ -49,30 +49,24 @@ public class TileReinforcedChest extends TileLockable {
 	
 	@Override
 	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
-		TileEntityReinforcedChest chest = WorldUtils.get(worldIn, pos, TileEntityReinforcedChest.class);
+		final TileEntityReinforcedChest chest = WorldUtils.get(worldIn, pos, TileEntityReinforcedChest.class);
 		if (chest != null && chest.isConnected()) {
-			EnumFacing connected = chest.getConnected();
-			if (connected == EnumFacing.NORTH)
-				setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F);
-			else if (connected == EnumFacing.SOUTH)
-				setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F);
-			else if (connected == EnumFacing.WEST)
-				setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
-			else if (connected == EnumFacing.EAST)
-				setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F);
+			switch(chest.getConnected()) {
+			case NORTH:	setBlockBounds(0.0625F, 0.0F, 0.0F, 0.9375F, 0.875F, 0.9375F); break;
+			case SOUTH:	setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 1.0F); break;
+			case WEST:	setBlockBounds(0.0F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F); break;
+			case EAST:	setBlockBounds(0.0625F, 0.0F, 0.0625F, 1.0F, 0.875F, 0.9375F); break;
+			default:	setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
+			}
 		} else setBlockBounds(0.0625F, 0.0F, 0.0625F, 0.9375F, 0.875F, 0.9375F);
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)), 2);
+		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
 		((TileEntityReinforcedChest) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
 		super.onBlockPlacedBy(worldIn, pos, state, placer, stack);
 	}
-	
-	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
-        return entityIn.getHorizontalFacing().getOpposite();
-    } 
 		
 	@Override
 	public boolean hasComparatorInputOverride() {
@@ -81,10 +75,7 @@ public class TileReinforcedChest extends TileLockable {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-	        byte b0 = 0;
-	        int i = b0 | state.getValue(FACING).getIndex();
-	       
-	        return i;
+	    return state.getValue(FACING).getIndex();
 	}
 	
 	@Override

@@ -147,7 +147,7 @@ public abstract class TileEntityContainer extends TileEntity {
 	public void dropContents() {
 		if (contents != null)
 			for (ItemStack stack : contents)
-				WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+				WorldUtils.dropStackFromBlock(worldObj, pos, stack);
 	}
 	
 	/** Called before the tile entity is being rendered as an item.

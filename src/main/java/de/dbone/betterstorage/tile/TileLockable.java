@@ -48,7 +48,7 @@ public abstract class TileLockable extends TileContainerBetterStorage {
 	
 	@Override
 	public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-		//if (hasMaterial())
+		if (hasMaterial())
 			//dropBlockAsItem(world, pos, WorldUtils.get(world, pos, TileEntityLockable.class).material.setMaterial(new ItemStack(this, 1, 0)));
 		super.onBlockExploded(world, pos, explosion);
 	}

@@ -11,10 +11,12 @@ import de.dbone.betterstorage.tile.TileLockableDoor;
 import de.dbone.betterstorage.tile.TileLocker;
 import de.dbone.betterstorage.tile.TilePresent;
 import de.dbone.betterstorage.tile.TileReinforcedChest;
+import de.dbone.betterstorage.tile.TileReinforcedGoldChest;
 import de.dbone.betterstorage.tile.TileReinforcedLocker;
 import de.dbone.betterstorage.tile.crate.TileCrate;
 import de.dbone.betterstorage.utils.MiscUtils;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ItemModelMesher;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.item.Item;
 import net.minecraft.server.MinecraftServer;
@@ -23,6 +25,7 @@ public final class BetterStorageTiles {
 	
 	public static TileCrate crate;
 	public static TileReinforcedChest reinforcedChest;
+	public static TileReinforcedGoldChest reinforcedGoldChest;
 	public static TileLocker locker;
 	public static TileBackpack backpack;
 	public static TileEnderBackpack enderBackpack;
@@ -39,6 +42,7 @@ public final class BetterStorageTiles {
 		
 		crate            = MiscUtils.conditionalNew(TileCrate.class, GlobalConfig.crateEnabled);
 		reinforcedChest  = MiscUtils.conditionalNew(TileReinforcedChest.class, GlobalConfig.reinforcedChestEnabled);
+		reinforcedGoldChest	= MiscUtils.conditionalNew(TileReinforcedGoldChest.class, GlobalConfig.reinforcedChestEnabled);
 		locker           = MiscUtils.conditionalNew(TileLocker.class, GlobalConfig.lockerEnabled);
 		backpack         = MiscUtils.conditionalNew(TileBackpack.class, GlobalConfig.backpackEnabled);
 		enderBackpack    = MiscUtils.conditionalNew(TileEnderBackpack.class, GlobalConfig.enderBackpackEnabled);
@@ -56,30 +60,25 @@ public final class BetterStorageTiles {
 	}
 
 	public static void registerItemModelMeshers() {
+		final ItemModelMesher itemMesher = Minecraft.getMinecraft().getRenderItem().getItemModelMesher();
 		if(crate != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(crate), 0, new ModelResourceLocation("betterstorage:" + crate.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(crate), 0, new ModelResourceLocation("betterstorage:" + crate.getTileName(), "inventory"));
 		if(reinforcedChest != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(reinforcedChest), 0, new ModelResourceLocation("betterstorage:" + reinforcedChest.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(reinforcedChest), 0, new ModelResourceLocation("betterstorage:" + reinforcedChest.getTileName(), "inventory"));
+		if(reinforcedGoldChest != null)
+			itemMesher.register(Item.getItemFromBlock(reinforcedGoldChest), 0, new ModelResourceLocation("betterstorage:reinforcedGoldChest", "inventory"));
 		if(locker != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(locker), 0, new ModelResourceLocation("betterstorage:" + locker.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(locker), 0, new ModelResourceLocation("betterstorage:" + locker.getTileName(), "inventory"));
 		if(backpack != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(backpack), 0, new ModelResourceLocation("betterstorage:" + backpack.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(backpack), 0, new ModelResourceLocation("betterstorage:" + backpack.getTileName(), "inventory"));
 		if(cardboardBox != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(cardboardBox), 0, new ModelResourceLocation("betterstorage:" + cardboardBox.getTileName(), "inventory"));		
+			itemMesher.register(Item.getItemFromBlock(cardboardBox), 0, new ModelResourceLocation("betterstorage:" + cardboardBox.getTileName(), "inventory"));		
 		if(reinforcedLocker != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(reinforcedLocker), 0, new ModelResourceLocation("betterstorage:" + reinforcedLocker.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(reinforcedLocker), 0, new ModelResourceLocation("betterstorage:" + reinforcedLocker.getTileName(), "inventory"));
 		if(craftingStation != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(craftingStation), 0, new ModelResourceLocation("betterstorage:" + craftingStation.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(craftingStation), 0, new ModelResourceLocation("betterstorage:" + craftingStation.getTileName(), "inventory"));
 		if(flintBlock != null)
-			Minecraft.getMinecraft().getRenderItem().getItemModelMesher()
-				.register(Item.getItemFromBlock(flintBlock), 0, new ModelResourceLocation("betterstorage:" + flintBlock.getTileName(), "inventory"));
+			itemMesher.register(Item.getItemFromBlock(flintBlock), 0, new ModelResourceLocation("betterstorage:" + flintBlock.getTileName(), "inventory"));
 	}
 	
 }

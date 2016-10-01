@@ -65,15 +65,15 @@ public final class WorldUtils {
 	}
 	
 	/** Spawn an ItemStack dropping from a destroyed block. */
-	public static EntityItem dropStackFromBlock(World world, int x, int y, int z, ItemStack stack) {
-		float itemX = x + RandomUtils.getFloat(0.1F, 0.9F);
-		float itemY = y + RandomUtils.getFloat(0.1F, 0.9F);
-		float itemZ = z + RandomUtils.getFloat(0.1F, 0.9F);
+	public static EntityItem dropStackFromBlock(World world, BlockPos pos, ItemStack stack) {
+		float itemX = pos.getX() + RandomUtils.getFloat(0.1F, 0.9F);
+		float itemY = pos.getY() + RandomUtils.getFloat(0.1F, 0.9F);
+		float itemZ = pos.getZ() + RandomUtils.getFloat(0.1F, 0.9F);
 		return spawnItemWithMotion(world, itemX, itemY, itemZ, stack);
 	}
 	/** Spawn an ItemStack dropping from a destroyed block. */
 	public static EntityItem dropStackFromBlock(TileEntity te, ItemStack stack) {
-		return dropStackFromBlock(te.getWorld(), te.getPos().getX(), te.getPos().getY(), te.getPos().getZ(), stack);
+		return dropStackFromBlock(te.getWorld(), te.getPos(), stack);
 	}
 	
 	/** Spawns an ItemStack as if it was dropped from an entity on death. */

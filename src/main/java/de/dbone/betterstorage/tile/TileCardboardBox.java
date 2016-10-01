@@ -44,12 +44,8 @@ public class TileCardboardBox extends TileContainerBetterStorage {
 		return 0;
 	}
 	
-	/*@Override
-	public boolean renderAsNormalBlock() { return false; }*/
-	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
 		playerIn.openGui(BetterStorage.instance, GuiHandler.GUI_CARDBOARD_BOX, worldIn, pos.getX(), pos.getY(), pos.getZ());
 		return true;
 	}

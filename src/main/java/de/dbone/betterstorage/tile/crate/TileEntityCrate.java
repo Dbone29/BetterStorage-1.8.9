@@ -193,7 +193,7 @@ public class TileEntityCrate extends TileEntityContainer implements IInventory, 
 	
 	/** Drops a single item from the (destroyed) crate. */
 	private void dropItem(ItemStack stack) {
-		WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+		WorldUtils.dropStackFromBlock(worldObj, pos, stack);
 	}
 	/** Drops multiple item from the (destroyed) crate. */
 	private void dropItems(List<ItemStack> stacks) {

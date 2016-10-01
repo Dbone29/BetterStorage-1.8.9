@@ -27,9 +27,9 @@ public class TileEntityCardboardBox extends TileEntityContainer {
 	}
 	
 	protected void onItemDropped(ItemStack stack) {
-		if (ItemCardboardBox.getUses() > 0) StackUtils.set(stack, uses, "uses");
-		if (color >= 0) StackUtils.set(stack, color, "display", "color");
-		if (getCustomTitle() != null) stack.setStackDisplayName(getCustomTitle());
+		if (ItemCardboardBox.getUses() > 0)	StackUtils.set(stack, uses, "uses");
+		if (color >= 0)						StackUtils.set(stack, color, "display", "color");
+		if (getCustomTitle() != null)		stack.setStackDisplayName(getCustomTitle());
 	}
 	
 	// TileEntityContainer stuff

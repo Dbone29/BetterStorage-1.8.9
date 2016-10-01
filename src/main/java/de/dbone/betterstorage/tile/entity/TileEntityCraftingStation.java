@@ -56,10 +56,10 @@ public class TileEntityCraftingStation extends TileEntityContainer implements II
 	@Override
 	public void dropContents() {
 		for (ItemStack stack : crafting)
-			WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+			WorldUtils.dropStackFromBlock(worldObj, pos, stack);
 		if (stationInventory.outputIsReal)
 			for (ItemStack stack : output)
-				WorldUtils.dropStackFromBlock(worldObj, pos.getX(), pos.getY(), pos.getZ(), stack);
+				WorldUtils.dropStackFromBlock(worldObj, pos, stack);
 		super.dropContents();
 	}
 	
