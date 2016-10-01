@@ -24,6 +24,7 @@ import net.minecraft.world.World;
 public class TileLocker extends TileContainerBetterStorage {
 	
 	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+	public static final PropertyBool LARGE = PropertyBool.create("large");
 	public static final PropertyBool MIRROR = PropertyBool.create("mirror");
 	
 	public TileLocker() {
@@ -33,7 +34,7 @@ public class TileLocker extends TileContainerBetterStorage {
 		setStepSound(soundTypeWood);
 		setBlockBounds(1 / 16.0F, 1 / 16.0F, 1 / 16.0F, 15 / 16.0F, 15 / 16.0F, 15 / 16.0F);
 
-		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MIRROR, false));
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MIRROR, false).withProperty(LARGE, false));
 		
 		setHarvestLevel("axe", 0);
 	}
@@ -53,40 +54,33 @@ public class TileLocker extends TileContainerBetterStorage {
 		float minX = 0, minY = 0, minZ = 0;
 		float maxX = 1, maxY = 1, maxZ = 1;
 		switch (WorldUtils.get(worldIn, pos, TileEntityLocker.class).getOrientation()) {
-			case EAST: maxX -= 1.0F / 16; break;
-			case WEST: minX += 1.0F / 16; break;
-			case SOUTH: maxZ -= 1.0F / 16; break;
-			case NORTH: minZ += 1.0F / 16; break;
-			default: break;
+			case EAST:	maxX -= 1.0F / 16; break;
+			case WEST:	minX += 1.0F / 16; break;
+			case SOUTH:	maxZ -= 1.0F / 16; break;
+			case NORTH:	minZ += 1.0F / 16; break;
+			default:
 		}
 		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
 	}
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		EnumFacing oriantation = placer.getHorizontalFacing().getOpposite();
+		final EnumFacing oriantation = placer.getHorizontalFacing().getOpposite();
 		boolean mirror;
 		
 		switch(oriantation) {
-		case NORTH:
-			mirror = placer.posX > (pos.getX() + 0.5);
-			break;
-		case SOUTH:
-			mirror = placer.posX < (pos.getX() + 0.5);
-			break;
-		case EAST:
-			mirror = placer.posZ > (pos.getZ() + 0.5);
-			break;
-		case WEST:
-			mirror = placer.posZ < (pos.getZ() + 0.5);
-			break;
-		default:
-			mirror = false;
+		case NORTH:	mirror = placer.posX > (pos.getX() + 0.5); break;
+		case SOUTH:	mirror = placer.posX < (pos.getX() + 0.5); break;
+		case EAST:	mirror = placer.posZ > (pos.getZ() + 0.5); break;
+		case WEST:	mirror = placer.posZ < (pos.getZ() + 0.5); break;
+		default:	mirror = false;
 		}
 		
-		worldIn.setBlockState(pos, state.withProperty(FACING, oriantation).withProperty(MIRROR, mirror), 2);
-		((TileEntityLocker) worldIn.getTileEntity(pos)).setOrientation(oriantation);
-		((TileEntityLocker) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
+		worldIn.setBlockState(pos, state.withProperty(FACING, oriantation).withProperty(MIRROR, mirror).withProperty(LARGE, false), 2);
+		final TileEntityLocker entity = ((TileEntityLocker) worldIn.getTileEntity(pos));
+		entity.setOrientation(oriantation);
+		entity.mirror = mirror;
+		entity.onBlockPlaced(placer, stack);
 	}
 		
 	@Override
@@ -96,10 +90,13 @@ public class TileLocker extends TileContainerBetterStorage {
 
 	@Override
 	public int getMetaFromState(IBlockState state) {
-		if(state.getValue(MIRROR))
-			return state.getValue(FACING).getIndex() + EnumFacing.VALUES.length;
-		else
-			return state.getValue(FACING).getIndex();
+		int result = state.getValue(FACING).getIndex() - 2;
+		
+		if(result < 0)				result = 0;
+		if(state.getValue(LARGE))	result = result + 8;		
+		if(state.getValue(MIRROR))	result = result + 4;
+		
+		return result;
 	}
 	
 	@Override
@@ -107,7 +104,7 @@ public class TileLocker extends TileContainerBetterStorage {
 	
 	@Override
 	protected BlockState createBlockState() {
-		return new BlockState(this, new IProperty[] {FACING, MIRROR});
+		return new BlockState(this, new IProperty[] {FACING, LARGE, MIRROR});
 	}
 
 	@Override

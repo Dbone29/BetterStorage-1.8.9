@@ -69,14 +69,10 @@ public class TileReinforcedLocker extends TileLockable {
 	
 	@Override
 	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		worldIn.setBlockState(pos, state.withProperty(FACING, getFacingFromEntity(worldIn, pos, placer)), 2);
-		((TileEntityReinforcedLocker) worldIn.getTileEntity(pos)).setOrientation(getFacingFromEntity(worldIn, pos, placer));
+		worldIn.setBlockState(pos, state.withProperty(FACING, placer.getHorizontalFacing().getOpposite()), 2);
+		((TileEntityReinforcedLocker) worldIn.getTileEntity(pos)).setOrientation(placer.getHorizontalFacing().getOpposite());
 		((TileEntityReinforcedLocker) worldIn.getTileEntity(pos)).onBlockPlaced(placer, stack);
 	}
-	
-	public EnumFacing getFacingFromEntity(World worldIn, BlockPos clickedBlock, EntityLivingBase entityIn) {
-        return entityIn.getHorizontalFacing().getOpposite();
-    } 
 		
 	@Override
 	public boolean hasComparatorInputOverride() {

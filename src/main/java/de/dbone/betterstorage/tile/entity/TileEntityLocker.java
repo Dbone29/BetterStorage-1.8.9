@@ -2,14 +2,17 @@ package de.dbone.betterstorage.tile.entity;
 
 import de.dbone.betterstorage.BetterStorage;
 import de.dbone.betterstorage.container.ContainerBetterStorage;
+import de.dbone.betterstorage.content.BetterStorageTiles;
 import de.dbone.betterstorage.misc.Constants;
 import de.dbone.betterstorage.misc.Resources;
+import de.dbone.betterstorage.tile.TileLocker;
 import de.dbone.betterstorage.utils.DirectionUtils;
 import de.dbone.betterstorage.utils.GuiHandler;
 import de.dbone.betterstorage.utils.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
@@ -35,6 +38,44 @@ public class TileEntityLocker extends TileEntityLockable {
 		inventory = new InventoryBasic("Locker", false, 27);
 	}
 	
+	/*public boolean getMirror() {
+		return worldObj.getBlockState(pos).getValue(TileLocker.MIRROR);
+	}*/
+
+	@Override
+	public void setConnected(EnumFacing connected) {
+		super.setConnected(connected);
+		
+		if(connected == EnumFacing.UP) {
+			if(mirror) {
+				//worldObj.setBlockState(pos, Blocks.air.getDefaultState());
+			} else {
+				worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
+						.withProperty(TileLocker.FACING, getOrientation())
+						.withProperty(TileLocker.LARGE, true)
+						.withProperty(TileLocker.MIRROR, mirror));
+			}
+		}
+		
+		if(connected == EnumFacing.DOWN) {
+			if(mirror) {
+				worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
+						.withProperty(TileLocker.FACING, getOrientation())
+						.withProperty(TileLocker.LARGE, true)
+						.withProperty(TileLocker.MIRROR, mirror));
+			} else {
+				//worldObj.setBlockState(pos, Blocks.air.getDefaultState());				
+			}
+		}
+		
+		if(connected == null) {
+			worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
+					.withProperty(TileLocker.FACING, getOrientation())
+					.withProperty(TileLocker.LARGE, false)
+					.withProperty(TileLocker.MIRROR, worldObj.getBlockState(pos).getValue(TileLocker.MIRROR)));
+		}
+	}
+	
 	@Override
 	@SideOnly(Side.CLIENT)
 	public AxisAlignedBB getRenderBoundingBox() {
@@ -44,6 +85,11 @@ public class TileEntityLocker extends TileEntityLockable {
 	@SideOnly(Side.CLIENT)
 	public ResourceLocation getResource() {
 		return (isConnected() ? Resources.textureLockerLarge : Resources.textureLocker);
+	}
+	
+	@Override
+	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
+		return (oldState.getBlock() != newSate.getBlock());
 	}
 	
 	@Override
@@ -71,7 +117,7 @@ public class TileEntityLocker extends TileEntityLockable {
 		super.onBlockPlacedBeforeCheckingConnections(player, stack);
 		double angle = DirectionUtils.getRotation(getOrientation().getOpposite());
 		double yaw = ((player.rotationYaw % 360) + 360) % 360;
-		mirror = (DirectionUtils.angleDifference(angle, yaw) > 0);
+		//mirror = (DirectionUtils.angleDifference(angle, yaw) > 0);
 		setAttachmentPosition();
 	}
 	
