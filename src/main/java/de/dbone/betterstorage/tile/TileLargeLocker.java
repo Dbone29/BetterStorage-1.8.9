@@ -1,14 +1,18 @@
 package de.dbone.betterstorage.tile;
 
-import de.dbone.betterstorage.BetterStorage;
 import de.dbone.betterstorage.attachment.IHasAttachments;
 import de.dbone.betterstorage.misc.Constants;
 import de.dbone.betterstorage.tile.entity.TileEntityContainer;
+import de.dbone.betterstorage.tile.entity.TileEntityLocker;
 import de.dbone.betterstorage.utils.MiscUtils;
 import de.dbone.betterstorage.utils.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.properties.PropertyDirection;
+import net.minecraft.block.state.BlockState;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,21 +23,31 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockPos;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.MovingObjectPosition;
+import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-public abstract class TileContainerBetterStorage extends BlockContainer {
+public class TileLargeLocker extends BlockContainer {
 	
-	private String name;
+	private String name = "largeLocker";
+
+	public static final PropertyDirection FACING = PropertyDirection.create("facing");
+	public static final PropertyBool MIRROR = PropertyBool.create("mirror");
 	
-	public TileContainerBetterStorage(Material material) {
+	public TileLargeLocker() {
+		super(Material.wood);
 		
-		super(material);
-		isBlockContainer = true;
-		
-		setCreativeTab(BetterStorage.creativeTab);
+
 		setUnlocalizedName(Constants.modId + "." + getTileName());
-		registerBlock();
+		GameRegistry.registerBlock(this, null, getTileName());
+		
+		setHardness(2.5f);
+		setStepSound(soundTypeWood);
+		setBlockBounds(1 / 16.0F, 1 / 16.0F, 1 / 16.0F, 15 / 16.0F, 15 / 16.0F, 15 / 16.0F);
+
+		setDefaultState(blockState.getBaseState().withProperty(FACING, EnumFacing.NORTH).withProperty(MIRROR, false));
+		
+		setHarvestLevel("axe", 0);
 	}
 	
 	/** Returns the name of this tile, for example "craftingStation". */
@@ -41,24 +55,14 @@ public abstract class TileContainerBetterStorage extends BlockContainer {
 		return ((name != null) ? name : (name = MiscUtils.getName(this)));
 	}
 	
-	/** Returns the item class used for this block.*/
-	protected Class<? extends ItemBlock> getItemClass() { return ItemBlock.class; }
-	
-	/** Registers the block in the GameRegistry. */
-	protected void registerBlock() {
-		Class<? extends Item> itemClass = getItemClass();
-		
-		if (itemClass != null) {
-			GameRegistry.registerBlock(this, (Class<? extends ItemBlock>)itemClass, getTileName());
-		} else {
-			GameRegistry.registerBlock(this, null, getTileName());
-		}
-	}
-	
 	@Override
 	public int getRenderType() {
 		return 3;
-	}	
+	}
+	
+	
+	
+	
 	
 	@Override
 	public boolean hasTileEntity() {
@@ -72,11 +76,6 @@ public abstract class TileContainerBetterStorage extends BlockContainer {
 	}
 
 	// Pass actions to TileEntityContainer
-	
-	@Override
-	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
-		getContainer(worldIn, pos).onBlockPlaced(placer, stack);
-	}
 	
 	@Override
 	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
@@ -123,4 +122,77 @@ public abstract class TileContainerBetterStorage extends BlockContainer {
 		TileEntityContainer container = getContainer(worldIn, pos);
 		if (container != null) container.onNeighborUpdate(neighborBlock);
 	}
+	
+	@Override
+	public boolean isOpaqueCube() { return false; }
+	
+	@Override
+	public boolean isSideSolid(IBlockAccess world, BlockPos pos, EnumFacing side) {
+		TileEntityLocker locker = WorldUtils.get(world, pos, TileEntityLocker.class);
+		return ((locker == null) || (locker.getOrientation() != side));
+	}
+	
+	@Override
+	public void setBlockBoundsBasedOnState(IBlockAccess worldIn, BlockPos pos) {
+		if(WorldUtils.get(worldIn, pos, TileEntityLocker.class) == null) return;
+		float minX = 0, minY = 0, minZ = 0;
+		float maxX = 1, maxY = 1, maxZ = 1;
+		switch (WorldUtils.get(worldIn, pos, TileEntityLocker.class).getOrientation()) {
+			case EAST:	maxX -= 1.0F / 16; break;
+			case WEST:	minX += 1.0F / 16; break;
+			case SOUTH:	maxZ -= 1.0F / 16; break;
+			case NORTH:	minZ += 1.0F / 16; break;
+			default:
+		}
+		setBlockBounds(minX, minY, minZ, maxX, maxY, maxZ);
+	}
+	
+	@Override
+	public void onBlockPlacedBy(World worldIn, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
+		final EnumFacing oriantation = placer.getHorizontalFacing().getOpposite();
+		boolean mirror;
+		
+		switch(oriantation) {
+		case NORTH:	mirror = placer.posX > (pos.getX() + 0.5); break;
+		case SOUTH:	mirror = placer.posX < (pos.getX() + 0.5); break;
+		case EAST:	mirror = placer.posZ > (pos.getZ() + 0.5); break;
+		case WEST:	mirror = placer.posZ < (pos.getZ() + 0.5); break;
+		default:	mirror = false;
+		}
+		
+		worldIn.setBlockState(pos, state.withProperty(FACING, oriantation).withProperty(MIRROR, mirror), 2);
+		final TileEntityLocker entity = ((TileEntityLocker) worldIn.getTileEntity(pos));
+		entity.setOrientation(oriantation);
+		entity.mirror = mirror;
+		entity.onBlockPlaced(placer, stack);
+	}
+		
+	@Override
+	public boolean hasComparatorInputOverride() {
+		return true;
+	}
+
+	@Override
+	public int getMetaFromState(IBlockState state) {
+		int result = state.getValue(FACING).getIndex() - 2;
+		
+		if(result < 0)				result = 0;
+		if(state.getValue(MIRROR))	result = result + 4;
+		
+		return result;
+	}
+	
+	@Override
+	public IBlockState getStateFromMeta(int meta) { return this.getDefaultState(); }
+	
+	@Override
+	protected BlockState createBlockState() {
+		return new BlockState(this, new IProperty[] {FACING, MIRROR});
+	}
+
+	@Override
+	public TileEntity createNewTileEntity(World worldIn, int meta) {
+		return new TileEntityLocker();
+	}
+
 }

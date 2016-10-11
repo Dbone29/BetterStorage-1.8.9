@@ -5,6 +5,7 @@ import de.dbone.betterstorage.container.ContainerBetterStorage;
 import de.dbone.betterstorage.content.BetterStorageTiles;
 import de.dbone.betterstorage.misc.Constants;
 import de.dbone.betterstorage.misc.Resources;
+import de.dbone.betterstorage.tile.TileLargeLocker;
 import de.dbone.betterstorage.tile.TileLocker;
 import de.dbone.betterstorage.utils.DirectionUtils;
 import de.dbone.betterstorage.utils.GuiHandler;
@@ -37,10 +38,6 @@ public class TileEntityLocker extends TileEntityLockable {
 	public TileEntityLocker() {
 		inventory = new InventoryBasic("Locker", false, 27);
 	}
-	
-	/*public boolean getMirror() {
-		return worldObj.getBlockState(pos).getValue(TileLocker.MIRROR);
-	}*/
 
 	@Override
 	public void setConnected(EnumFacing connected) {
@@ -50,19 +47,17 @@ public class TileEntityLocker extends TileEntityLockable {
 			if(mirror) {
 				//worldObj.setBlockState(pos, Blocks.air.getDefaultState());
 			} else {
-				worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
-						.withProperty(TileLocker.FACING, getOrientation())
-						.withProperty(TileLocker.LARGE, true)
-						.withProperty(TileLocker.MIRROR, mirror));
+				worldObj.setBlockState(pos, BetterStorageTiles.largeLocker.getDefaultState()
+						.withProperty(TileLargeLocker.FACING, getOrientation())
+						.withProperty(TileLargeLocker.MIRROR, mirror));
 			}
 		}
 		
 		if(connected == EnumFacing.DOWN) {
 			if(mirror) {
-				worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
-						.withProperty(TileLocker.FACING, getOrientation())
-						.withProperty(TileLocker.LARGE, true)
-						.withProperty(TileLocker.MIRROR, mirror));
+				worldObj.setBlockState(pos, BetterStorageTiles.largeLocker.getDefaultState()
+						.withProperty(TileLargeLocker.FACING, getOrientation())
+						.withProperty(TileLargeLocker.MIRROR, mirror));
 			} else {
 				//worldObj.setBlockState(pos, Blocks.air.getDefaultState());				
 			}
@@ -71,8 +66,7 @@ public class TileEntityLocker extends TileEntityLockable {
 		if(connected == null) {
 			worldObj.setBlockState(pos, BetterStorageTiles.locker.getDefaultState()
 					.withProperty(TileLocker.FACING, getOrientation())
-					.withProperty(TileLocker.LARGE, false)
-					.withProperty(TileLocker.MIRROR, worldObj.getBlockState(pos).getValue(TileLocker.MIRROR)));
+					.withProperty(TileLocker.MIRROR, worldObj.getBlockState(pos).getValue(TileLargeLocker.MIRROR)));
 		}
 	}
 	
@@ -89,7 +83,11 @@ public class TileEntityLocker extends TileEntityLockable {
 	
 	@Override
 	public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newSate) {
-		return (oldState.getBlock() != newSate.getBlock());
+		boolean first = oldState.getBlock().getDefaultState() == BetterStorageTiles.locker.getDefaultState() || oldState == BetterStorageTiles.largeLocker.getDefaultState();
+		boolean second = newSate.getBlock().getDefaultState() == BetterStorageTiles.locker.getDefaultState() || newSate == BetterStorageTiles.largeLocker.getDefaultState();
+		
+		return !(first && second); 
+		//return (oldState.getBlock() != newSate.getBlock());
 	}
 	
 	@Override

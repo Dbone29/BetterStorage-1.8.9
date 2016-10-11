@@ -1,31 +1,18 @@
 {
+    "forge_marker": 1,
     "variants": {
 
-        "facing=north,large=false,mirror=false": { "model": "betterstorage:locker" },
-        "facing=north,large=false,mirror=true": { "model": "betterstorage:locker", "x": 180, "y" : 180 },
+        "facing=north,mirror=false": { "model": "betterstorage:locker" },
+        "facing=north,mirror=true": { "model": "betterstorage:locker", "x": 180, "y" : 180 },
         
-        "facing=east,large=false,mirror=false": { "model": "betterstorage:locker", "y": 90 },
-        "facing=east,large=false,mirror=true": { "model": "betterstorage:locker", "y": 270, "x": 180 },
+        "facing=east,mirror=false": { "model": "betterstorage:locker", "y": 90 },
+        "facing=east,mirror=true": { "model": "betterstorage:locker", "y": 270, "x": 180 },
         
-        "facing=south,large=false,mirror=false": { "model": "betterstorage:locker", "y": 180 },
-        "facing=south,large=false,mirror=true": { "model": "betterstorage:locker", "x": 180 },
+        "facing=south,mirror=false": { "model": "betterstorage:locker", "y": 180 },
+        "facing=south,mirror=true": { "model": "betterstorage:locker", "x": 180 },
         
-        "facing=west,large=false,mirror=false": { "model": "betterstorage:locker", "y": 270 },
-        "facing=west,large=false,mirror=true": { "model": "betterstorage:locker", "y": 90, "x": 180 },
-                
-        
-
-        "facing=north,large=true,mirror=false": { "model": "betterstorage:largeLocker" },
-        "facing=north,large=true,mirror=true": { "model": "betterstorage:largeLocker", "x": 180, "y" : 180 },
-        
-        "facing=east,large=true,mirror=false": { "model": "betterstorage:largeLocker", "y": 90 },
-        "facing=east,large=true,mirror=true": { "model": "betterstorage:largeLocker", "y": 270, "x": 180 },
-        
-        "facing=south,large=true,mirror=false": { "model": "betterstorage:largeLocker", "y": 180 },
-        "facing=south,large=true,mirror=true": { "model": "betterstorage:largeLocker", "x": 180 },
-        
-        "facing=west,large=true,mirror=false": { "model": "betterstorage:largeLocker", "y": 270 },
-        "facing=west,large=true,mirror=true": { "model": "betterstorage:largeLocker", "y": 90, "x": 180 }
+        "facing=west,mirror=false": { "model": "betterstorage:locker", "y": 270 },
+        "facing=west,mirror=true": { "model": "betterstorage:locker", "y": 90, "x": 180 }
 
     }
 }

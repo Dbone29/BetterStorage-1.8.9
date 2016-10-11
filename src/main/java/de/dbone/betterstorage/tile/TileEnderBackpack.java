@@ -28,9 +28,6 @@ public class TileEnderBackpack extends TileBackpack {
 		setHardness(3.0f);
 	}
 	
-	@Override
-	public ItemBackpack getItemType() { return BetterStorageItems.itemEnderBackpack; }
-	
 	public static boolean teleportRandomly(World world, double sourceX, double sourceY, double sourceZ, boolean canFloat, ItemStack stack) {
 		
 		int x = (int)sourceX + RandomUtils.getInt(-12, 12 + 1);
@@ -61,16 +58,9 @@ public class TileEnderBackpack extends TileBackpack {
 	}
 	
 	@Override
-	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn,
-			EnumFacing side, float hitX, float hitY, float hitZ) {
-		if (!worldIn.isRemote) {
+	public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumFacing side, float hitX, float hitY, float hitZ) {
+		if (!worldIn.isRemote)
 			playerIn.openGui(BetterStorage.instance, GuiHandler.GUI_ENDER_BACKPACK, worldIn, pos.getX(), pos.getY(), pos.getZ());
-		}
 		return true;
-	}
-	
-	@Override
-	public TileEntity createNewTileEntity(World world, int metadata) {
-		return new TileEntityBackpack();
 	}
 }

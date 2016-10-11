@@ -63,10 +63,6 @@ public class TileBackpack extends TileContainerBetterStorage {
 	public boolean isOpaqueCube() { return false; }
 	
 	@Override
-	@SideOnly(Side.CLIENT)
-	public int getRenderType() { return ClientProxy.backpackRenderId; }
-	
-	@Override
 	public int quantityDropped(IBlockState state, int fortune, Random random) {
 		return 0;
 	}
